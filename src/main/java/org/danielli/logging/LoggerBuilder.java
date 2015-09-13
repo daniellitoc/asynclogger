@@ -111,7 +111,7 @@ public abstract class LoggerBuilder {
         public Logger build() {
             FileHandler fileHandler = new DefaultFileHandler(fileName, isAppend, fileBufferSize, useDirectMemory, clock,
                     exceptionHandler);
-            return new DefaultLogger(immediateFlush, fileHandler);
+            return new DefaultLogger<>(immediateFlush, fileHandler);
         }
     }
 
@@ -196,7 +196,7 @@ public abstract class LoggerBuilder {
             Rollover rollover = new DefaultRollover(minIndex, maxIndex, useMax, 0, compressionBufferSize, exceptionHandler);
             RollingFileHandler fileHandler = new DefaultRollingFileHandler(fileName, filePattern, isAppend, fileBufferSize,
                     useDirectMemory, clock, trigger, rollover, exceptionHandler);
-            return new RollingLogger(immediateFlush, fileHandler);
+            return new RollingLogger<>(immediateFlush, fileHandler);
         }
 
     }

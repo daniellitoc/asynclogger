@@ -35,7 +35,7 @@ public class CachedClock implements Clock {
 
     @Override
     public long currentTimeMillis() {
-        if (count++ > this.countThreshold) {
+        if (count++ > countThreshold) {
             setCurrent();
             count = 0;
         }

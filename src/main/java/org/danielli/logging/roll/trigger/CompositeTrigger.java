@@ -13,6 +13,7 @@ public class CompositeTrigger<T extends RollingFileHandler> implements Trigger<T
 
     private final Trigger<T>[] triggers;
 
+    @SafeVarargs
     public CompositeTrigger(Trigger<T>... triggers) {
         this.triggers = triggers;
     }

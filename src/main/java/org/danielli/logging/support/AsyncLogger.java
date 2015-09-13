@@ -38,7 +38,7 @@ public class AsyncLogger implements Logger {
     @Override
     public void write(LoggerEvent event, boolean endOfBatch) {
         if (endOfBatch) {
-            syncWrite(event, endOfBatch);
+            syncWrite(event, true);
         } else {
             write(event);
         }

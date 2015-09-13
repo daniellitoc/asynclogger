@@ -22,7 +22,7 @@ public class DefaultRollover implements Rollover {
     private final int maxIndex;
     private final int minIndex;
     private final boolean useMax;
-    private final int compressionLevel;
+//    private final int compressionLevel;
     private final int bufferSize;
     private final ExceptionHandler handler;
 
@@ -30,7 +30,7 @@ public class DefaultRollover implements Rollover {
         this.minIndex = minIndex;
         this.maxIndex = maxIndex;
         this.useMax = useMax;
-        this.compressionLevel = compressionLevel;
+//        this.compressionLevel = compressionLevel;
         this.bufferSize = bufferSize;
         this.handler = handler;
     }

@@ -151,7 +151,7 @@ public class DateFormatter implements Formatter {
             current.setTimeInMillis(currentMillis);
             Calendar calendar = Calendar.getInstance();
 
-            calendar.set(current.get(Calendar.YEAR), 0, 1, 0, 0, 0);
+            calendar.set(current.get(Calendar.YEAR), Calendar.JANUARY, 1, 0, 0, 0);
             calendar.set(Calendar.MILLISECOND, 0);
             return doGetNextTime(calendar, current, increment, modulus);
         }

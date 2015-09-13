@@ -76,6 +76,7 @@ public class ParallelFlusher<E> {
         return !ringBuffer.hasAvailableCapacity(ringBuffer.getBufferSize());
     }
 
+    @SafeVarargs
     private static <E> void process(EventListener<E> listener, Throwable e, E... events) {
         for (E event : events) {
             process(listener, e, event);
@@ -108,7 +109,8 @@ public class ParallelFlusher<E> {
         }
     }
 
-    public void add(E... events) {
+    @SafeVarargs
+    public final void add(E... events) {
         RingBuffer<Holder> temp = ringBuffer;
         if (temp == null) {
             process(this.eventListener, new IllegalStateException("distruptor is closed."), events);
@@ -139,7 +141,8 @@ public class ParallelFlusher<E> {
         }
     }
 
-    public boolean tryAdd(E... events) {
+    @SafeVarargs
+    public final boolean tryAdd(E... events) {
         RingBuffer<Holder> temp = ringBuffer;
         if (temp == null) {
             return false;

@@ -89,6 +89,7 @@ public class InvokeFlusher<E> {
         return !ringBuffer.hasAvailableCapacity(ringBuffer.getBufferSize());
     }
 
+    @SafeVarargs
     private static <E> void process(List<EventListener<E>[]> listenerGroups, Throwable e, E... events) {
         for (E event : events) {
             process(listenerGroups, e, event);
@@ -125,7 +126,8 @@ public class InvokeFlusher<E> {
         }
     }
 
-    public void add(E... events) {
+    @SafeVarargs
+    public final void add(E... events) {
         RingBuffer<Holder> temp = ringBuffer;
         if (temp == null) {
             process(this.listenerGroups, new IllegalStateException("distruptor is closed."), events);
@@ -156,7 +158,8 @@ public class InvokeFlusher<E> {
         }
     }
 
-    public boolean tryAdd(E... events) {
+    @SafeVarargs
+    public final boolean tryAdd(E... events) {
         RingBuffer<Holder> temp = ringBuffer;
         if (temp == null) {
             return false;
@@ -244,7 +247,8 @@ public class InvokeFlusher<E> {
             return this;
         }
 
-        public Builder<E> addListenerGroup(EventListener<E>... listenerGroup) {
+        @SafeVarargs
+        public final Builder<E> addListenerGroup(EventListener<E>... listenerGroup) {
             this.listenerGroups.add(Preconditions.checkNotNull(listenerGroup));
             Preconditions.checkArgument(listenerGroup.length != 0);
             return this;
