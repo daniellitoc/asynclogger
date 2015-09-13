@@ -15,8 +15,8 @@
 * BatchForwarder：批量聚合器，用于聚合单条记录转为批量。
 * DefaultLogger：普通日志（ByteBuffer + FileChannel）。
 * RollingLogger：轮转日志（支持日期格式自动识别、索引、压缩；按时间、文件大小识别轮转）
-* AsyncLogger：采用InvokeFlusher + BatchForwarder实现。
-* FilterableLogger：支持多过滤器模式。
+* AsyncLogger：采用InvokeFlusher实现。
+* FilterableLogger：支持过滤的日志。
 * LoggerBuilder：用于生成日志（DefaultLogger/RollingLogger/AsyncLogger/FilterableLogger）的构造器。
 
 ## 相关属性 ##
@@ -25,7 +25,7 @@
 
 * immediateFlush：每次都同步落盘，默认为false。
 * fileName：文件名，必填。
-* isAppend：是否追加，默认为true。
+* isAppend：是否对日志进行追加，默认为true。
 * fileBufferSize：ByteBuffer申请大小，默认512 * 1024。
 * useDirectMemory：是否使用DirectMemory，默认为true。
 * clock：时钟，默认采用CachedClock。
@@ -46,7 +46,7 @@
 
 * waitStrategy：等待策略，参考InvokeFlusher，可根据延迟、性能等情况，自行选择（自旋、让步、让步 + 等待、锁和条件）。
 * producerType：标识生产者类型，单生产者和多生产者，默认为多生产者。
-* bufferSize：RingBuffer大小，默认为
+* bufferSize：RingBuffer大小，默认为512 * 1024。
 * notifySize：通知大小。默认为1024。用于手动报告RingBuffer当前位置。
 
 ## 使用 ##
