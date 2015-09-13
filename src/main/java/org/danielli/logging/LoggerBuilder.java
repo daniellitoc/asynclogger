@@ -191,7 +191,7 @@ public abstract class LoggerBuilder {
                 triggers.add(new TimeBasedTrigger<>(interval, modulate));
             }
 
-            Trigger<RollingFileHandler> trigger = new CompositeTrigger<>(triggers.toArray(new Trigger[triggers.size()]));
+            @SuppressWarnings("unchecked") Trigger<RollingFileHandler> trigger = new CompositeTrigger<>(triggers.toArray(new Trigger[triggers.size()]));
 
             Rollover rollover = new DefaultRollover(minIndex, maxIndex, useMax, 0, compressionBufferSize, exceptionHandler);
             RollingFileHandler fileHandler = new DefaultRollingFileHandler(fileName, filePattern, isAppend, fileBufferSize,

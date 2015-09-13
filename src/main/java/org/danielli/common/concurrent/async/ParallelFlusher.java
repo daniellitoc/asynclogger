@@ -62,10 +62,11 @@ public class ParallelFlusher<E> {
         Disruptor<Holder> disruptor = new Disruptor<>(eventFactory, bufferSize, executorService, producerType, waitStrategy);
         disruptor.handleExceptionsWith(exceptionHandler);
 
-        WorkHandler<Holder>[] workHandlers = new WorkHandler[builder.threads];
+        @SuppressWarnings("unchecked") WorkHandler<Holder>[] workHandlers = new WorkHandler[builder.threads];
         for (int i = 0, length = workHandlers.length; i < length; i++) {
             workHandlers[i] = new HolderWorkHandler();
         }
+        //noinspection unchecked
         disruptor.handleEventsWithWorkerPool(workHandlers);
 
         this.ringBuffer = disruptor.start();
@@ -303,7 +304,8 @@ public class ParallelFlusher<E> {
 
         @Override
         public void handleEventException(Throwable ex, long sequence, Object event) {
-            eventListener.onException(ex, sequence, ((Holder) event).event);
+            @SuppressWarnings("unchecked") Holder holder = (Holder) event;
+            eventListener.onException(ex, sequence, holder.event);
         }
 
         @Override

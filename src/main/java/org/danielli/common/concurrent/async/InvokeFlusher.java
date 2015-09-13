@@ -68,7 +68,7 @@ public class InvokeFlusher<E> {
                 new Function<EventListener<E>[], EventHandler<Holder>[]>() {
                     @Override
                     public EventHandler<Holder>[] apply(EventListener<E>[] input) {
-                        EventHandler<Holder>[] result = new EventHandler[input.length];
+                        @SuppressWarnings("unchecked") EventHandler<Holder>[] result = new EventHandler[input.length];
                         for (int i = 0, length = input.length; i < length; i++) {
                             result[i] = new HolderEventHandler(input[i], notifySize);
                         }
@@ -358,7 +358,7 @@ public class InvokeFlusher<E> {
 
         @Override
         public void handleEventException(Throwable ex, long sequence, Object event) {
-            Holder holder = (Holder) event;
+            @SuppressWarnings("unchecked") Holder holder = (Holder) event;
             throw new UnsupportedOperationException("Sequence: " + sequence + ". Event: " + (holder == null ? null : holder.event), ex);
         }
 
