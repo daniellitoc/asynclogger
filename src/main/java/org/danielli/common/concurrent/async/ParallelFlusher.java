@@ -14,7 +14,7 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
 /**
- * 异步刷新器，生产者/消费者模式（无锁队列），同一事件只被一个消费者消费。多消费者并行。单挑”通知“模式。
+ * 异步刷新器，生产者/消费者模式（无锁队列），同一事件只被一个消费者消费。多消费者并行消费。单条”通知“模式。
  * <pre>
  * 策略选择：性能从高 - 低
  *  BusySpinWaitStrategy: 自旋等待，延迟最低，资源占用相对最多；用于处理线程小于物理内核(禁用超线程)
