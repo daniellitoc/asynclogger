@@ -45,7 +45,7 @@ public class DefaultFileHandler implements FileHandler {
 
         FileChannel fileChannel = null;
         try {
-            fileChannel = new FileOutputStream(fileName).getChannel();
+            fileChannel = new FileOutputStream(fileName, isAppend).getChannel();
             fileChannel.position(initialSize);
         } catch (IOException e) {
             IOs.closeQuietly(fileChannel);
