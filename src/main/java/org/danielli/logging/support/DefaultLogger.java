@@ -1,8 +1,8 @@
 package org.danielli.logging.support;
 
-import org.danielli.logging.handler.FileHandler;
 import org.danielli.logging.Logger;
 import org.danielli.logging.LoggerEvent;
+import org.danielli.logging.handler.FileHandler;
 
 /**
  * 默认日志文件写入器。

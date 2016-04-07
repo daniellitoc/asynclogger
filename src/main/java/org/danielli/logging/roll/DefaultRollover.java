@@ -1,10 +1,10 @@
 package org.danielli.logging.roll;
 
+import org.danielli.common.io.Files;
 import org.danielli.logging.exception.ExceptionHandler;
 import org.danielli.logging.roll.action.Action;
 import org.danielli.logging.roll.action.FileRenameAction;
 import org.danielli.logging.roll.action.GunZipCompressAction;
-import org.danielli.common.io.Files;
 import org.danielli.logging.roll.pattern.FilePattern;
 
 import java.io.File;
@@ -22,7 +22,7 @@ public class DefaultRollover implements Rollover {
     private final int maxIndex;
     private final int minIndex;
     private final boolean useMax;
-//    private final int compressionLevel;
+    //    private final int compressionLevel;
     private final int bufferSize;
     private final ExceptionHandler handler;
 

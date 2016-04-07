@@ -2,16 +2,16 @@ package org.danielli.logging.roll.pattern;
 
 import com.google.common.base.Preconditions;
 import com.google.common.collect.Lists;
-import javafx.util.Pair;
 import org.danielli.common.clock.Clock;
+import org.danielli.common.io.Files;
 import org.danielli.logging.roll.pattern.format.DateFormatter;
 import org.danielli.logging.roll.pattern.format.DefaultFormatter;
 import org.danielli.logging.roll.pattern.format.Formatter;
 import org.danielli.logging.roll.pattern.format.IndexFormatter;
-import org.danielli.common.io.Files;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -23,7 +23,7 @@ import java.util.regex.Pattern;
  */
 public class FilePattern {
 
-    private static final String[] GunZip = new String[] { "gz", "GZ" };
+    private static final String[] GunZip = new String[]{"gz", "GZ"};
 
     private static final String Split = ".";
     private static final String RegexSplit = "\\" + Split;
@@ -71,7 +71,7 @@ public class FilePattern {
 
     public long getNextTime(long millis, int increment, boolean modulus) {
         prevFileTime = nextFileTime;
-        Pair<Long, Long> pair = frequency.getNextTime(millis, increment, modulus);
+        Map.Entry<Long, Long> pair = frequency.getNextTime(millis, increment, modulus);
         nextFileTime = pair.getValue();
         return pair.getKey();
     }

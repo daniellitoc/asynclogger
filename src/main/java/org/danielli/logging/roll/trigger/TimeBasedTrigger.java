@@ -1,7 +1,7 @@
 package org.danielli.logging.roll.trigger;
 
-import org.danielli.logging.handler.RollingFileHandler;
 import org.danielli.logging.LoggerEvent;
+import org.danielli.logging.handler.RollingFileHandler;
 import org.danielli.logging.roll.pattern.FilePattern;
 
 /**

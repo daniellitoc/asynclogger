@@ -2,10 +2,10 @@ package org.danielli.logging.support;
 
 import com.lmax.disruptor.WaitStrategy;
 import com.lmax.disruptor.dsl.ProducerType;
+import org.danielli.common.concurrent.async.InvokeFlusher;
 import org.danielli.logging.Logger;
 import org.danielli.logging.LoggerEvent;
 import org.danielli.logging.exception.ExceptionHandler;
-import org.danielli.common.concurrent.async.InvokeFlusher;
 
 /**
  * 异步Logger。

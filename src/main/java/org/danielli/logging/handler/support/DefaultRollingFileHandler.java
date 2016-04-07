@@ -1,12 +1,12 @@
 package org.danielli.logging.handler.support;
 
 import org.danielli.common.clock.Clock;
+import org.danielli.logging.LoggerEvent;
 import org.danielli.logging.exception.ExceptionHandler;
 import org.danielli.logging.handler.RollingFileHandler;
 import org.danielli.logging.roll.Rollover;
-import org.danielli.logging.roll.action.Action;
-import org.danielli.logging.LoggerEvent;
 import org.danielli.logging.roll.action.AbstractAction;
+import org.danielli.logging.roll.action.Action;
 import org.danielli.logging.roll.pattern.FilePattern;
 import org.danielli.logging.roll.trigger.Trigger;
 

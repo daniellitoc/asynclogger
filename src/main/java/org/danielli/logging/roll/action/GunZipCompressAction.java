@@ -1,7 +1,7 @@
 package org.danielli.logging.roll.action;
 
-import org.danielli.logging.exception.ExceptionHandler;
 import org.danielli.common.io.Files;
+import org.danielli.logging.exception.ExceptionHandler;
 
 import java.io.File;
 import java.io.IOException;

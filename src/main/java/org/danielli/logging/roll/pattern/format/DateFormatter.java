@@ -1,10 +1,11 @@
 package org.danielli.logging.roll.pattern.format;
 
-import javafx.util.Pair;
+import com.google.common.collect.Maps;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Map;
 
 /**
  * 日志格式化器。
@@ -44,7 +45,7 @@ public class DateFormatter implements Formatter {
 
         MINUTE("m") {
             @Override
-            protected Pair<Long, Long> doGetNextTime(Calendar calendar, Calendar current, int increment, boolean modulus) {
+            protected Map.Entry<Long, Long> doGetNextTime(Calendar calendar, Calendar current, int increment, boolean modulus) {
                 calendar.set(Calendar.MONTH, current.get(Calendar.MONTH));
                 calendar.set(Calendar.DAY_OF_YEAR, current.get(Calendar.DAY_OF_YEAR));
                 calendar.set(Calendar.HOUR_OF_DAY, current.get(Calendar.HOUR_OF_DAY));
@@ -54,13 +55,13 @@ public class DateFormatter implements Formatter {
                 long nextTime = calendar.getTimeInMillis();
                 calendar.add(Calendar.MINUTE, -1);
                 long nextFileTime = calendar.getTimeInMillis();
-                return new Pair<>(nextTime, nextFileTime);
+                return Maps.immutableEntry(nextTime, nextFileTime);
             }
         },
 
         HOURLY("H") {
             @Override
-            protected Pair<Long, Long> doGetNextTime(Calendar calendar, Calendar current, int increment, boolean modulus) {
+            protected Map.Entry<Long, Long> doGetNextTime(Calendar calendar, Calendar current, int increment, boolean modulus) {
                 calendar.set(Calendar.MONTH, current.get(Calendar.MONTH));
                 calendar.set(Calendar.DAY_OF_YEAR, current.get(Calendar.DAY_OF_YEAR));
                 calendar.set(Calendar.HOUR_OF_DAY, current.get(Calendar.HOUR_OF_DAY));
@@ -69,13 +70,13 @@ public class DateFormatter implements Formatter {
                 long nextTime = calendar.getTimeInMillis();
                 calendar.add(Calendar.HOUR_OF_DAY, -1);
                 long nextFileTime = calendar.getTimeInMillis();
-                return new Pair<>(nextTime, nextFileTime);
+                return Maps.immutableEntry(nextTime, nextFileTime);
             }
         },
 
         DAILY("d") {
             @Override
-            protected Pair<Long, Long> doGetNextTime(Calendar calendar, Calendar current, int increment, boolean modulus) {
+            protected Map.Entry<Long, Long> doGetNextTime(Calendar calendar, Calendar current, int increment, boolean modulus) {
                 calendar.set(Calendar.MONTH, current.get(Calendar.MONTH));
                 calendar.set(Calendar.DAY_OF_YEAR, current.get(Calendar.DAY_OF_YEAR));
 
@@ -83,13 +84,13 @@ public class DateFormatter implements Formatter {
                 long nextTime = calendar.getTimeInMillis();
                 calendar.add(Calendar.DAY_OF_YEAR, -1);
                 long nextFileTime = calendar.getTimeInMillis();
-                return new Pair<>(nextTime, nextFileTime);
+                return Maps.immutableEntry(nextTime, nextFileTime);
             }
         },
 
         WEEKLY("w") {
             @Override
-            protected Pair<Long, Long> doGetNextTime(Calendar calendar, Calendar current, int increment, boolean modulus) {
+            protected Map.Entry<Long, Long> doGetNextTime(Calendar calendar, Calendar current, int increment, boolean modulus) {
                 calendar.set(Calendar.MONTH, current.get(Calendar.MONTH));
 
                 calendar.set(Calendar.WEEK_OF_YEAR, current.get(Calendar.WEEK_OF_YEAR));
@@ -98,31 +99,31 @@ public class DateFormatter implements Formatter {
                 long nextTime = calendar.getTimeInMillis();
                 calendar.add(Calendar.WEEK_OF_YEAR, -1);
                 long nextFileTime = calendar.getTimeInMillis();
-                return new Pair<>(nextTime, nextFileTime);
+                return Maps.immutableEntry(nextTime, nextFileTime);
             }
         },
 
         MONTHLY("M") {
             @Override
-            protected Pair<Long, Long> doGetNextTime(Calendar calendar, Calendar current, int increment, boolean modulus) {
+            protected Map.Entry<Long, Long> doGetNextTime(Calendar calendar, Calendar current, int increment, boolean modulus) {
                 calendar.set(Calendar.MONTH, current.get(Calendar.MONTH));
 
                 increment(calendar, Calendar.MONTH, increment, modulus);
                 long nextTime = calendar.getTimeInMillis();
                 calendar.add(Calendar.MONTH, -1);
                 long nextFileTime = calendar.getTimeInMillis();
-                return new Pair<>(nextTime, nextFileTime);
+                return Maps.immutableEntry(nextTime, nextFileTime);
             }
         },
 
         ANNUALLY("y") {
             @Override
-            protected Pair<Long, Long> doGetNextTime(Calendar calendar, Calendar current, int increment, boolean modulus) {
+            protected Map.Entry<Long, Long> doGetNextTime(Calendar calendar, Calendar current, int increment, boolean modulus) {
                 Frequency.increment(calendar, Calendar.YEAR, increment, modulus);
                 long nextTime = calendar.getTimeInMillis();
                 calendar.add(Calendar.YEAR, -1);
                 long nextFileTime = calendar.getTimeInMillis();
-                return new Pair<>(nextTime, nextFileTime);
+                return Maps.immutableEntry(nextTime, nextFileTime);
             }
         };
 
@@ -146,7 +147,7 @@ public class DateFormatter implements Formatter {
             throw new IllegalArgumentException("pattern not support");
         }
 
-        public Pair<Long, Long> getNextTime(long currentMillis, int increment, boolean modulus) {
+        public Map.Entry<Long, Long> getNextTime(long currentMillis, int increment, boolean modulus) {
             Calendar current = Calendar.getInstance();
             current.setTimeInMillis(currentMillis);
             Calendar calendar = Calendar.getInstance();
@@ -156,7 +157,7 @@ public class DateFormatter implements Formatter {
             return doGetNextTime(calendar, current, increment, modulus);
         }
 
-        protected abstract Pair<Long, Long> doGetNextTime(Calendar calendar, Calendar current, int increment, boolean modulus);
+        protected abstract Map.Entry<Long, Long> doGetNextTime(Calendar calendar, Calendar current, int increment, boolean modulus);
 
         private boolean match(String pattern) {
             return pattern.contains(match);
