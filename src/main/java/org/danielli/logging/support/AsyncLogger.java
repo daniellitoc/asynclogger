@@ -58,19 +58,6 @@ public class AsyncLogger implements Logger {
         this.logger.close();
     }
 
-    public class LoggerEventListener implements InvokeFlusher.EventListener<LoggerEvent> {
-
-        @Override
-        public void onException(Throwable e, long sequence, LoggerEvent event) {
-            AsyncLogger.this.handler.handleEventException(e.getMessage(), e, event);
-        }
-
-        @Override
-        public void onEvent(LoggerEvent event, boolean endOfBatch) throws Exception {
-            syncWrite(event, endOfBatch);
-        }
-    }
-
     /**
      * 添加行为，用于控制刷新器添加日志策略（等待写入、尝试写入、丢弃日志等）。
      *
@@ -120,6 +107,19 @@ public class AsyncLogger implements Logger {
             } else {
                 handler.handleEvent("discard", event);
             }
+        }
+    }
+
+    public class LoggerEventListener implements InvokeFlusher.EventListener<LoggerEvent> {
+
+        @Override
+        public void onException(Throwable e, long sequence, LoggerEvent event) {
+            AsyncLogger.this.handler.handleEventException(e.getMessage(), e, event);
+        }
+
+        @Override
+        public void onEvent(LoggerEvent event, boolean endOfBatch) throws Exception {
+            syncWrite(event, endOfBatch);
         }
     }
 }

@@ -12,10 +12,9 @@ import java.io.IOException;
  */
 public abstract class AbstractAction implements Action {
 
+    protected final ExceptionHandler handler;
     private boolean complete = false;
     private boolean interrupted = false;
-
-    protected final ExceptionHandler handler;
 
     protected AbstractAction(ExceptionHandler handler) {
         this.handler = handler;
