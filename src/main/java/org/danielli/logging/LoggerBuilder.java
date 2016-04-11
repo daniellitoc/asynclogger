@@ -209,6 +209,7 @@ public abstract class LoggerBuilder {
         protected ProducerType producerType = ProducerType.MULTI;
         protected int bufferSize = 512 * 1024;
         protected int notifySize = 1024;
+        protected AsyncLogger.AddAction addAction = new AsyncLogger.DefaultAddAction(-1);
 
         private AsyncLoggerBuilder(Logger logger, ExceptionHandler exceptionHandler) {
             this.logger = Preconditions.checkNotNull(logger);
@@ -237,9 +238,13 @@ public abstract class LoggerBuilder {
             return this;
         }
 
+        public void setAddAction(AsyncLogger.AddAction addAction) {
+            this.addAction = addAction;
+        }
+
         @Override
         public Logger build() {
-            return new AsyncLogger(logger, waitStrategy, producerType, bufferSize, notifySize, exceptionHandler);
+            return new AsyncLogger(logger, waitStrategy, producerType, bufferSize, notifySize, addAction, exceptionHandler);
         }
     }
 

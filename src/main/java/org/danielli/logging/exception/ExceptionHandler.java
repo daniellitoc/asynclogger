@@ -14,5 +14,7 @@ public interface ExceptionHandler {
 
     void handleException(String msg, Throwable e);
 
+    void handleEvent(String msg, LoggerEvent event);
+
     void handle(String msg);
 }

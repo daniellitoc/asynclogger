@@ -68,18 +68,24 @@ public class AsyncLoggerTest {
 
         @Override
         public void handleEventException(String msg, Throwable e, LoggerEvent event) {
-            System.out.println(0);
+            System.out.println(3);
             e.printStackTrace();
         }
 
         @Override
         public void handleException(String msg, Throwable e) {
+            System.out.println(2);
+            e.printStackTrace();
+        }
+
+        @Override
+        public void handleEvent(String msg, LoggerEvent event) {
             System.out.println(1);
         }
 
         @Override
         public void handle(String msg) {
-            System.out.println(2);
+            System.out.println(0);
         }
     }
 }
